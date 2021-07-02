@@ -62,7 +62,7 @@ export default class Patient extends Component {
 
         let toUpdate = true;
         Object.values(this.state.currentPatient).forEach(value => {
-            if(value === "") toUpdate = false
+            if (value === "") toUpdate = false
         })
         if (toUpdate) {
             PatientService.update(this.state.currentPatient)
@@ -161,12 +161,26 @@ export default class Patient extends Component {
                 {this.state.currentPatient ? (
                     <div>
                         <div className={"small-information"}>
+                            {this.state.updatingPatient ? (
+                                <ButtonGroup className={"float-right"}>
+                                    <Button variant="outline-success" onClick={this.confirmPatientEditing}>
+                                        <i className={"fa fa-check"}/>Зберегти </Button>
+                                    <Button variant="outline-danger" onClick={this.cancelPatientEditing}>
+                                        <i className={"fa fa-times"}/>Скасувати</Button>
+                                </ButtonGroup>
+                            ) : (
+                                <ButtonGroup className={"float-right"}>
+                                    <Button variant="outline-primary" onClick={this.editCurrentPatient}>
+                                        <i className={"fa fa-pencil"}/>Редагувати</Button>
+                                    <Button variant="outline-danger" onClick={this.delete}>
+                                        <i className={"fa fa-trash"}/>Видалити</Button>
+                                </ButtonGroup>
+                            )}
                             <input type="text" value={this.state.currentPatient.fullName}
                                    onChange={this.handleNameChange}
                                    disabled={!this.state.updatingPatient}
                                    className={"form-control"}
                                    style={{width: "325px"}}/>
-
                         </div>
                         <div className={"flex-container"}>
                             <div className={"detailed-information"}>
@@ -205,21 +219,6 @@ export default class Patient extends Component {
                                     </p>
                                 </Form>
 
-                                {this.state.updatingPatient ? (
-                                    <ButtonGroup>
-                                        <Button variant="outline-success" onClick={this.confirmPatientEditing}>
-                                            <i className={"fa fa-check"}/> </Button>
-                                        <Button variant="outline-danger" onClick={this.cancelPatientEditing}>
-                                            <i className={"fa fa-times"}/> </Button>
-                                    </ButtonGroup>
-                                ) : (
-                                    <ButtonGroup>
-                                        <Button variant="outline-primary" onClick={this.editCurrentPatient}>
-                                            <i className={"fa fa-pencil"}/></Button>
-                                        <Button variant="outline-danger" onClick={this.delete}>
-                                            <i className={"fa fa-trash"}/></Button>
-                                    </ButtonGroup>
-                                )}
                                 <Exception message={this.state.message}/>
                             </div>
                             <Comments patientId={this.state.patientId} currentPatient={this.state.currentPatient}
