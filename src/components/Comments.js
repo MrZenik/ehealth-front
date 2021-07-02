@@ -167,7 +167,7 @@ export default class Comments extends Component {
                                                     onClick={() => this.deleteMedicalRecord(record.id, this.state.patientId)}>
                                                 <i className={"fa fa-trash"}/></Button>
                                         </ButtonGroup>
-                                        <p>Коментар: {record.comment}</p>
+                                        <p>{record.comment}</p>
                                     </li>
                                 ))}
                             </ul>
